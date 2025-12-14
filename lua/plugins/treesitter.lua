@@ -2,7 +2,7 @@ return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+    -- main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
       ensure_installed = {
@@ -32,33 +32,35 @@ return {
       indent = { enable = true, disable = { 'ruby' } },
     },
   },
-  {
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    config = function()
-      require('nvim-treesitter.configs').setup {
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true,
 
-            keymaps = {
-              ['af'] = '@function.outer',
-              ['if'] = '@function.inner',
-              ['ac'] = '@class.outer',
-              ['ic'] = { query = '@class.inner', desc = 'Select inner part of a class region' },
-              ['as'] = { query = '@local.scope', query_group = 'locals', desc = 'Select language scope' },
-            },
-            selection_modes = {
-              ['@parameter.outer'] = 'v', -- charwise
-              ['@function.outer'] = 'V', -- linewise
-              ['@class.outer'] = '<c-v>', -- blockwise
-            },
-            include_surrounding_whitespace = true,
-          },
-        },
-      }
-    end,
-  },
+  -- {
+  --   'nvim-treesitter/nvim-treesitter-textobjects',
+  --   config = function()
+  --     require('nvim-treesitter.configs').setup {
+  --       textobjects = {
+  --         select = {
+  --           enable = true,
+  --           lookahead = true,
+  --
+  --           keymaps = {
+  --             ['af'] = '@function.outer',
+  --             ['if'] = '@function.inner',
+  --             ['ac'] = '@class.outer',
+  --             ['ic'] = { query = '@class.inner', desc = 'Select inner part of a class region' },
+  --             ['as'] = { query = '@local.scope', query_group = 'locals', desc = 'Select language scope' },
+  --           },
+  --           selection_modes = {
+  --             ['@parameter.outer'] = 'v', -- charwise
+  --             ['@function.outer'] = 'V', -- linewise
+  --             ['@class.outer'] = '<c-v>', -- blockwise
+  --           },
+  --           include_surrounding_whitespace = true,
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
+
   {
     'Wansmer/treesj',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
