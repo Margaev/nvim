@@ -49,6 +49,9 @@ return {
   },
 
   {
+    -- installation: https://github.com/iamcco/markdown-preview.nvim/issues/690
+    -- :Lazy load markdown-preview.nvim
+    -- :Lazy build markdown-preview.nvim
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
     ft = { 'markdown' },
