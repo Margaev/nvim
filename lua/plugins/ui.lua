@@ -107,4 +107,15 @@ return {
       },
     },
   },
+  {
+    'mbbill/undotree',
+    keys = {
+      {
+        '<leader>tu',
+        mode = { 'n' },
+        '<Cmd>UndotreeToggle<CR><Cmd>UndotreeFocus<CR>',
+        desc = '[t]oggle [u]ndo tree',
+      },
+    },
+  },
 }
