@@ -25,7 +25,25 @@ return {
       local dap = require 'dap'
       local ui = require 'dapui'
 
-      require('dapui').setup()
+      ui.setup {
+        layouts = {
+          {
+            elements = {
+              { id = 'scopes', size = 1 },
+            },
+            position = 'left',
+            size = 40,
+          },
+          {
+            elements = {
+              { id = 'repl', size = 0.25 },
+              { id = 'console', size = 0.75 },
+            },
+            position = 'right',
+            size = 70,
+          },
+        },
+      }
       require('dap-go').setup()
 
       vim.keymap.set('n', '<space>db', dap.toggle_breakpoint)
@@ -33,7 +51,7 @@ return {
 
       vim.keymap.set('n', '<space>d?', function()
         ---@diagnostic disable-next-line: missing-fields
-        require('dapui').eval(nil, { enter = true, desc = 'eval var under cursor' })
+        ui.eval(nil, { enter = true, desc = 'eval var under cursor' })
       end)
 
       vim.keymap.set('n', '<leader>dc', dap.continue, { desc = 'continue' })
@@ -47,6 +65,11 @@ return {
       vim.keymap.set('n', '<leader>td', function()
         ui.toggle { reset = true }
       end, { desc = '[T]oggle [D]AP UI' })
+
+      vim.keymap.set('n', '<leader>df', function()
+        ---@diagnostic disable-next-line: missing-parameter
+        ui.float_element()
+      end, { desc = '[d]apui [f]loat element' })
 
       dap.listeners.before.attach.dapui_config = function()
         ui.open()
