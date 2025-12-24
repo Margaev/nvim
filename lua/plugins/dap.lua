@@ -36,11 +36,11 @@ return {
           },
           {
             elements = {
-              { id = 'repl', size = 0.25 },
-              { id = 'console', size = 0.75 },
+              { id = 'repl', size = 0.4 },
+              { id = 'console', size = 0.6 },
             },
-            position = 'right',
-            size = 70,
+            position = 'bottom',
+            size = 20,
           },
         },
       }
