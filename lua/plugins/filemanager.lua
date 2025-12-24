@@ -1,3 +1,7 @@
+-- disable netrw for nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 return {
   ---@type LazySpec
   {
@@ -35,5 +39,26 @@ return {
     init = function()
       vim.g.loaded_netrwPlugin = 1
     end,
+  },
+  {
+    'nvim-tree/nvim-tree.lua',
+    config = function()
+      require('nvim-tree').setup {
+        view = {
+          width = math.floor(vim.api.nvim_win_get_width(0) / 5),
+        },
+        update_focused_file = {
+          enable = true,
+        },
+      }
+    end,
+    keys = {
+      {
+        '<leader>tt',
+        mode = { 'n' },
+        '<cmd>NvimTreeToggle<cr>',
+        desc = '[t]oggle nvim[t]ree',
+      },
+    },
   },
 }
