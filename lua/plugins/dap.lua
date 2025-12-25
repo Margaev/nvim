@@ -32,7 +32,7 @@ return {
               { id = 'scopes', size = 1 },
             },
             position = 'left',
-            size = 40,
+            size = 0.2,
           },
           {
             elements = {
