@@ -15,7 +15,7 @@ return {
     'github/copilot.vim',
     config = function()
       vim.g.copilot_enabled = false
-      vim.keymap.set('n', '<leader>ct', toggle_copilot, { desc = 'Toggle copilot' })
+      vim.keymap.set('n', '<leader>tC', toggle_copilot, { desc = '[t]oggle [C]opilot' })
     end,
   },
   {
@@ -31,8 +31,9 @@ return {
         .. "- If the user asks for code; return code only; don't explain how the code works unless asked.\n"
         .. "- If the user question is fundamentally incorrect, don't provide an inconsistent answer, briefly explain why the user question is incorrect.\n"
         .. "- If you explained the user is incorrect, but he says the word 'override', reply the next answer with: 'override acknowledged', assume the user is correct; re-evaluate the question and provide a new answer taking it as a fact that the user is correct.\n"
+        .. '- When generating python, generate the code that complies with ruff and basedpyright with `typeCheckingMode = "standard"` setting'
       local conf = {
-        openai_api_key = os.getenv 'EON_GPT_KEY',
+        openai_api_key = os.getenv 'OPENAI_API_KEY',
         providers = {
           openai = {
             -- secret = os.getenv 'EON_GPT_KEY',
@@ -79,13 +80,18 @@ return {
       }
       require('gp').setup(conf)
 
-      vim.keymap.set('n', '<leader>gpt', '<CMD>GpChatToggle popup<CR>', { desc = 'GpChat toggle' })
-      vim.keymap.set('n', '<leader>gpn', '<CMD>GpChatNew popup<CR>', { desc = 'GpChat implement' })
-      vim.keymap.set('v', '<leader>gpi', '<CMD>GpImplement<CR>', { desc = 'implement' })
+      local chat_view = 'popup'
+
+      vim.keymap.set('n', '<leader>gpt', '<CMD>GpChatToggle ' .. chat_view .. '<CR>', { desc = 'GpChat toggle' })
+      vim.keymap.set('n', '<leader>gpn', '<CMD>GpChatNew ' .. chat_view .. '<CR>', { desc = 'GpChat implement' })
       vim.keymap.set('n', '<leader>gpf', '<CMD>GpChatFinder<CR>', { desc = 'chat finder' })
-      vim.keymap.set('v', '<leader>gpr', '<CMD>GpRewrite<CR>', { desc = 'rewrite' })
       vim.keymap.set('n', '<leader>gps', '<CMD>GpStop<CR>', { desc = 'stop' })
       vim.keymap.set('n', '<leader>gpa', '<CMD>GpSelectAgent<CR>', { desc = 'select agent' })
+
+      vim.keymap.set('v', '<leader>gpp', ":'<,'>GpChatPaste " .. chat_view .. '<CR>', { desc = 'paste selection into chat' })
+      vim.keymap.set('n', '<leader>gpr', ':%GpRewrite<CR>', { desc = 'rewrite whole file' })
+      vim.keymap.set('v', '<leader>gpr', ":'<,'>GpRewrite<CR>", { desc = 'rewrite' })
+      vim.keymap.set('v', '<leader>gpi', ":'<,'>GpImplement<CR>", { desc = 'implement' })
     end,
   },
 }
