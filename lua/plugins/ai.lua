@@ -32,6 +32,7 @@ return {
         .. "- If the user question is fundamentally incorrect, don't provide an inconsistent answer, briefly explain why the user question is incorrect.\n"
         .. "- If you explained the user is incorrect, but he says the word 'override', reply the next answer with: 'override acknowledged', assume the user is correct; re-evaluate the question and provide a new answer taking it as a fact that the user is correct.\n"
         .. '- When generating python, generate the code that complies with ruff and basedpyright with `typeCheckingMode = "standard"` setting'
+        .. '- If the user provides the filenames for the code, mention which file you are generating the code for'
       local conf = {
         openai_api_key = os.getenv 'OPENAI_API_KEY',
         providers = {
@@ -80,7 +81,7 @@ return {
       }
       require('gp').setup(conf)
 
-      local chat_view = 'popup'
+      local chat_view = 'vsplit'
 
       vim.keymap.set('n', '<leader>gpt', '<CMD>GpChatToggle ' .. chat_view .. '<CR>', { desc = 'GpChat toggle' })
       vim.keymap.set('n', '<leader>gpn', '<CMD>GpChatNew ' .. chat_view .. '<CR>', { desc = 'GpChat implement' })
