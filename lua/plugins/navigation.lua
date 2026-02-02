@@ -78,7 +78,7 @@ return {
         end,
         -- autojump = true,
       }
-      vim.keymap.set('n', '<leader>a', '<cmd>AerialToggle float<CR>', { desc = '[a]erial toggle' })
+      vim.keymap.set('n', '<leader>l', '<cmd>AerialToggle float<CR>', { desc = 'aeria[l] toggle' })
     end,
   },
 }

@@ -9,6 +9,18 @@ local function toggle_copilot()
     vim.notify('Copilot disabled', vim.log.levels.INFO)
   end
 end
+local system_prompt = 'You are a senior programmer AI assistant.\n\n'
+  .. "I'm Andrei, you can call me android or comrade:\n\n"
+  .. 'The user provided the additional info about how they would like you to respond:\n\n'
+  .. "- If you're unsure don't guess and say you don't know instead.\n"
+  .. '- Ask question if you need clarification to provide better answer.\n'
+  .. "- Don't elide any code from your output if the answer requires coding.\n"
+  .. '- Answer short and to the point. The user will ask for elaboration if needed.\n'
+  .. "- If the user asks for code; return code only; don't explain how the code works unless asked.\n"
+  .. "- If the user question is fundamentally incorrect, don't provide an inconsistent answer, briefly explain why the user question is incorrect.\n"
+  .. "- If you explained the user is incorrect, but he says the word 'override', reply the next answer with: 'override acknowledged', assume the user is correct; re-evaluate the question and provide a new answer taking it as a fact that the user is correct.\n"
+  .. '- When generating python, generate the code that complies with ruff and basedpyright with `typeCheckingMode = "standard"` setting'
+  .. '- If the user provides the filenames for the code, mention which file you are generating the code for'
 
 return {
   {
@@ -21,18 +33,6 @@ return {
   {
     'robitx/gp.nvim',
     config = function()
-      local system_prompt = 'You are a senior programmer AI assistant.\n\n'
-        .. "I'm Andrei, you can call me android or comrade:\n\n"
-        .. 'The user provided the additional info about how they would like you to respond:\n\n'
-        .. "- If you're unsure don't guess and say you don't know instead.\n"
-        .. '- Ask question if you need clarification to provide better answer.\n'
-        .. "- Don't elide any code from your output if the answer requires coding.\n"
-        .. '- Answer short and to the point. The user will ask for elaboration if needed.\n'
-        .. "- If the user asks for code; return code only; don't explain how the code works unless asked.\n"
-        .. "- If the user question is fundamentally incorrect, don't provide an inconsistent answer, briefly explain why the user question is incorrect.\n"
-        .. "- If you explained the user is incorrect, but he says the word 'override', reply the next answer with: 'override acknowledged', assume the user is correct; re-evaluate the question and provide a new answer taking it as a fact that the user is correct.\n"
-        .. '- When generating python, generate the code that complies with ruff and basedpyright with `typeCheckingMode = "standard"` setting'
-        .. '- If the user provides the filenames for the code, mention which file you are generating the code for'
       local conf = {
         openai_api_key = os.getenv 'OPENAI_API_KEY',
         providers = {
@@ -74,7 +74,7 @@ return {
             chat = true,
             command = true,
             model = { model = 'gpt-4-turbo' },
-            system_prompt = 'Answer any query with just: Sure thing..',
+            system_prompt = system_prompt,
             disable = true,
           },
         },
@@ -95,4 +95,69 @@ return {
       vim.keymap.set('v', '<leader>gpi', ":'<,'>GpImplement<CR>", { desc = 'implement' })
     end,
   },
+
+  -- {
+  --   'yetone/avante.nvim',
+  --   build = vim.fn.has 'win32' ~= 0 and 'powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false' or 'make',
+  --   event = 'VeryLazy',
+  --   version = false, -- Never set this value to "*"! Never!
+  --   ---@module 'avante'
+  --   ---@type avante.Config
+  --   opts = {
+  --     instructions_file = 'avante.md',
+  --     provider = 'copilot',
+  --     system_prompt = system_prompt,
+  --     providers = {
+  --       copilot = {
+  --         endpoint = 'https://api.githubcopilot.com',
+  --         model = 'gpt-4o-2024-08-06',
+  --         proxy = nil, -- [protocol://]host[:port] Use this proxy
+  --         allow_insecure = false, -- Allow insecure server connections
+  --         timeout = 30000, -- Timeout in milliseconds
+  --         temperature = 0,
+  --         extra_request_body = {
+  --           max_tokens = 20480,
+  --         },
+  --       },
+  --     },
+  --   },
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --     'MunifTanjim/nui.nvim',
+  --     --- The below dependencies are optional,
+  --     'nvim-mini/mini.pick', -- for file_selector provider mini.pick
+  --     'nvim-telescope/telescope.nvim', -- for file_selector provider telescope
+  --     'hrsh7th/nvim-cmp', -- autocompletion for avante commands and mentions
+  --     'ibhagwan/fzf-lua', -- for file_selector provider fzf
+  --     'stevearc/dressing.nvim', -- for input provider dressing
+  --     'folke/snacks.nvim', -- for input provider snacks
+  --     'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
+  --     'zbirenbaum/copilot.lua', -- for providers='copilot'
+  --     {
+  --       -- support for image pasting
+  --       'HakonHarnes/img-clip.nvim',
+  --       event = 'VeryLazy',
+  --       opts = {
+  --         -- recommended settings
+  --         default = {
+  --           embed_image_as_base64 = false,
+  --           prompt_for_file_name = false,
+  --           drag_and_drop = {
+  --             insert_mode = true,
+  --           },
+  --           -- required for Windows users
+  --           use_absolute_path = true,
+  --         },
+  --       },
+  --     },
+  --     {
+  --       -- Make sure to set this up properly if you have lazy=true
+  --       'MeanderingProgrammer/render-markdown.nvim',
+  --       opts = {
+  --         file_types = { 'Avante' },
+  --       },
+  --       ft = { 'Avante' },
+  --     },
+  --   },
+  -- },
 }
