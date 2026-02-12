@@ -6,36 +6,36 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufWritePost' }, {
-  pattern = '*.json',
-  callback = function()
-    local bufnr = vim.api.nvim_get_current_buf()
-    local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-    local input = table.concat(lines, '\n')
-
-    local tmpfile = os.tmpname()
-    local outfile = tmpfile .. '_out'
-    local f = io.open(tmpfile, 'w')
-    if not f then
-      return
-    end
-    f:write(input)
-    f:close()
-
-    local ok = os.execute(string.format('jq . %s > %s 2>/dev/null', tmpfile, outfile))
-    if ok == 0 then
-      local out = io.open(outfile, 'r')
-      if out then
-        local formatted = out:read '*a'
-        out:close()
-        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(formatted, '\n'))
-      end
-    end
-
-    os.remove(tmpfile)
-    os.remove(outfile)
-  end,
-})
+-- vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufWritePost' }, {
+--   pattern = '*.json',
+--   callback = function()
+--     local bufnr = vim.api.nvim_get_current_buf()
+--     local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+--     local input = table.concat(lines, '\n')
+--
+--     local tmpfile = os.tmpname()
+--     local outfile = tmpfile .. '_out'
+--     local f = io.open(tmpfile, 'w')
+--     if not f then
+--       return
+--     end
+--     f:write(input)
+--     f:close()
+--
+--     local ok = os.execute(string.format('jq . %s > %s 2>/dev/null', tmpfile, outfile))
+--     if ok == 0 then
+--       local out = io.open(outfile, 'r')
+--       if out then
+--         local formatted = out:read '*a'
+--         out:close()
+--         vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(formatted, '\n'))
+--       end
+--     end
+--
+--     os.remove(tmpfile)
+--     os.remove(outfile)
+--   end,
+-- })
 
 -- keymaps specific for python
 vim.api.nvim_create_autocmd('FileType', {

@@ -72,6 +72,11 @@ return {
         "<cmd>lua require('neotest').run.run({ suite = true, env = { CI = true } })<cr>",
         desc = 'Run all tests with CI',
       },
+      {
+        '<leader>ol',
+        "<cmd>lua require('neotest').output_panel.clear()<cr>",
+        desc = 'C[l]ear test output',
+      },
     },
   },
 }
