@@ -29,7 +29,7 @@ return {
           end
 
           map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
-          map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+          -- map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
           map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
           map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
           map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
@@ -115,7 +115,13 @@ return {
 
       local servers = {
         gopls = {},
-        basedpyright = {},
+        basedpyright = {
+          exclude = {
+            '**/__pycache__',
+            '**/.git/**',
+            '**/.venv/**',
+          },
+        },
         ts_ls = {},
         tailwindcss = {},
         lua_ls = {
@@ -170,7 +176,8 @@ return {
     opts = {},
     keys = {
       {
-        '<leader>ca',
+        -- '<leader>ca',
+        'gra',
         mode = { 'n' },
         function()
           ---@diagnostic disable-next-line: missing-parameter

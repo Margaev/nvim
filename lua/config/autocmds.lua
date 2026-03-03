@@ -6,6 +6,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+vim.api.nvim_create_user_command('Jq', function()
+  vim.cmd "%!jq '.'"
+end, { desc = 'Format buffer as JSON using jq' })
+
 -- vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufWritePost' }, {
 --   pattern = '*.json',
 --   callback = function()

@@ -69,13 +69,20 @@ return {
             system_prompt = system_prompt,
           },
           {
-            name = 'MyCustomAgent',
+            name = 'ChatGPT5',
+            disable = false,
+            chat = true,
+            command = true,
+            model = { model = 'gpt-5', temperature = 0.7, top_p = 0.5 },
+            system_prompt = system_prompt,
+          },
+          {
+            name = 'Copilot',
             provider = 'copilot',
             chat = true,
             command = true,
-            model = { model = 'gpt-4-turbo' },
+            model = { model = 'claude-opus-4-6' },
             system_prompt = system_prompt,
-            disable = true,
           },
         },
       }
@@ -96,68 +103,74 @@ return {
     end,
   },
 
-  -- {
-  --   'yetone/avante.nvim',
-  --   build = vim.fn.has 'win32' ~= 0 and 'powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false' or 'make',
-  --   event = 'VeryLazy',
-  --   version = false, -- Never set this value to "*"! Never!
-  --   ---@module 'avante'
-  --   ---@type avante.Config
-  --   opts = {
-  --     instructions_file = 'avante.md',
-  --     provider = 'copilot',
-  --     system_prompt = system_prompt,
-  --     providers = {
-  --       copilot = {
-  --         endpoint = 'https://api.githubcopilot.com',
-  --         model = 'gpt-4o-2024-08-06',
-  --         proxy = nil, -- [protocol://]host[:port] Use this proxy
-  --         allow_insecure = false, -- Allow insecure server connections
-  --         timeout = 30000, -- Timeout in milliseconds
-  --         temperature = 0,
-  --         extra_request_body = {
-  --           max_tokens = 20480,
-  --         },
-  --       },
-  --     },
-  --   },
-  --   dependencies = {
-  --     'nvim-lua/plenary.nvim',
-  --     'MunifTanjim/nui.nvim',
-  --     --- The below dependencies are optional,
-  --     'nvim-mini/mini.pick', -- for file_selector provider mini.pick
-  --     'nvim-telescope/telescope.nvim', -- for file_selector provider telescope
-  --     'hrsh7th/nvim-cmp', -- autocompletion for avante commands and mentions
-  --     'ibhagwan/fzf-lua', -- for file_selector provider fzf
-  --     'stevearc/dressing.nvim', -- for input provider dressing
-  --     'folke/snacks.nvim', -- for input provider snacks
-  --     'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
-  --     'zbirenbaum/copilot.lua', -- for providers='copilot'
-  --     {
-  --       -- support for image pasting
-  --       'HakonHarnes/img-clip.nvim',
-  --       event = 'VeryLazy',
-  --       opts = {
-  --         -- recommended settings
-  --         default = {
-  --           embed_image_as_base64 = false,
-  --           prompt_for_file_name = false,
-  --           drag_and_drop = {
-  --             insert_mode = true,
-  --           },
-  --           -- required for Windows users
-  --           use_absolute_path = true,
-  --         },
-  --       },
-  --     },
-  --     {
-  --       -- Make sure to set this up properly if you have lazy=true
-  --       'MeanderingProgrammer/render-markdown.nvim',
-  --       opts = {
-  --         file_types = { 'Avante' },
-  --       },
-  --       ft = { 'Avante' },
-  --     },
-  --   },
-  -- },
+  {
+    'yetone/avante.nvim',
+    build = vim.fn.has 'win32' ~= 0 and 'powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false' or 'make',
+    event = 'VeryLazy',
+    version = false, -- Never set this value to "*"! Never!
+    ---@module 'avante'
+    ---@type avante.Config
+    opts = {
+      instructions_file = 'avante.md',
+      provider = 'copilot',
+      system_prompt = system_prompt,
+      providers = {
+        copilot = {
+          endpoint = 'https://api.githubcopilot.com',
+          model = 'gpt-5.2',
+          proxy = nil, -- [protocol://]host[:port] Use this proxy
+          allow_insecure = false, -- Allow insecure server connections
+          timeout = 30000, -- Timeout in milliseconds
+          temperature = 0,
+          extra_request_body = {
+            max_tokens = 20480,
+          },
+        },
+      },
+      mappings = {
+        submit = {
+          normal = '<CR>',
+          insert = '<C-g><C-g>',
+        },
+      },
+    },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'MunifTanjim/nui.nvim',
+      --- The below dependencies are optional,
+      'nvim-mini/mini.pick', -- for file_selector provider mini.pick
+      'nvim-telescope/telescope.nvim', -- for file_selector provider telescope
+      'hrsh7th/nvim-cmp', -- autocompletion for avante commands and mentions
+      'ibhagwan/fzf-lua', -- for file_selector provider fzf
+      'stevearc/dressing.nvim', -- for input provider dressing
+      'folke/snacks.nvim', -- for input provider snacks
+      'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
+      'zbirenbaum/copilot.lua', -- for providers='copilot'
+      {
+        -- support for image pasting
+        'HakonHarnes/img-clip.nvim',
+        event = 'VeryLazy',
+        opts = {
+          -- recommended settings
+          default = {
+            embed_image_as_base64 = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+            },
+            -- required for Windows users
+            use_absolute_path = true,
+          },
+        },
+      },
+      {
+        -- Make sure to set this up properly if you have lazy=true
+        'MeanderingProgrammer/render-markdown.nvim',
+        opts = {
+          file_types = { 'Avante' },
+        },
+        ft = { 'Avante' },
+      },
+    },
+  },
 }
