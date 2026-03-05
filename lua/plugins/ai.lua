@@ -81,7 +81,7 @@ return {
             provider = 'copilot',
             chat = true,
             command = true,
-            model = { model = 'claude-opus-4-6' },
+            model = { model = 'gpt-5.2' },
             system_prompt = system_prompt,
           },
         },
@@ -132,6 +132,10 @@ return {
           normal = '<CR>',
           insert = '<C-g><C-g>',
         },
+      },
+      selection = {
+        enabled = false,
+        hint_display = 'delayed',
       },
     },
     dependencies = {

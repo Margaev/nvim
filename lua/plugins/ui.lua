@@ -118,4 +118,7 @@ return {
       },
     },
   },
+  {
+    'stevearc/dressing.nvim',
+  },
 }

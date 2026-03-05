@@ -38,7 +38,7 @@ return {
         nerd_font_variant = 'mono',
       },
       completion = {
-        documentation = { auto_show = true, auto_show_delay_ms = 500 },
+        documentation = { auto_show = true, auto_show_delay_ms = 100 },
       },
       sources = {
         default = { 'lsp', 'path', 'snippets', 'lazydev' },
