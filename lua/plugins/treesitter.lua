@@ -22,6 +22,8 @@ return {
           'terraform',
           'python',
           'go',
+          'typescript',
+          'javascript',
         })
         :wait(300000)
       require('nvim-treesitter').setup {
