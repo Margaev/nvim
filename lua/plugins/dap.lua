@@ -45,6 +45,16 @@ return {
         },
       }
       require('dap-go').setup()
+      dap.configurations.scala = {
+        {
+          type = 'scala',
+          request = 'launch',
+          name = 'Run or Test Target',
+          metals = {
+            runType = 'runOrTestFile',
+          },
+        },
+      }
 
       vim.keymap.set('n', '<space>db', dap.toggle_breakpoint)
       vim.keymap.set('n', '<space>dgb', dap.run_to_cursor)
