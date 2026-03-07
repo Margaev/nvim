@@ -76,6 +76,10 @@ return {
           vim.keymap.set({ 'n', 'v' }, '<leader>[', '<cmd>AerialPrev<CR>', { buffer = bufnr })
           vim.keymap.set({ 'n', 'v' }, '<leader>]', '<cmd>AerialNext<CR>', { buffer = bufnr })
         end,
+        layout = {
+          max_width = { 0.5, 0.5 },
+          min_width = { 0.25, 0.25 },
+        },
         -- autojump = true,
       }
       vim.keymap.set('n', '<leader>l', '<cmd>AerialToggle float<CR>', { desc = 'aeria[l] toggle' })
