@@ -7,11 +7,22 @@ return {
       'antoinemadec/FixCursorHold.nvim',
       'nvim-treesitter/nvim-treesitter',
       'nvim-neotest/neotest-python',
+      {
+        'fredrikaverpil/neotest-golang',
+        version = '*', -- Optional, but recommended; track releases
+        build = function()
+          vim.system({ 'go', 'install', 'gotest.tools/gotestsum@latest' }):wait() -- Optional, but recommended
+        end,
+      },
     },
     config = function()
+      local go_config = {
+        runner = 'gotestsum',
+      }
       require('neotest').setup {
         adapters = {
           require 'neotest-python',
+          require 'neotest-golang'(go_config),
         },
       }
     end,
