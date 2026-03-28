@@ -59,3 +59,10 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', '<leader>SO', [[:s/Optional\[\(.*\)\]/\=submatch(1) . ' | None'/<CR>]], { buffer = true, desc = '[S]ubstitute [O]ptional to | None' })
   end,
 })
+
+vim.filetype.add {
+  pattern = {
+    ['.*%.yaml%.tftpl'] = 'yaml',
+    ['.*%.yml%.tftpl'] = 'yaml',
+  },
+}
