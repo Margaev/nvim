@@ -45,6 +45,15 @@ return {
         },
       }
       require('dap-go').setup()
+      dap.configurations.go = {
+        {
+          type = 'delve',
+          name = 'file',
+          request = 'launch',
+          program = '${file}',
+          outputMode = 'remote',
+        },
+      }
       dap.configurations.scala = {
         {
           type = 'scala',
