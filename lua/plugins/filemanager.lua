@@ -40,15 +40,22 @@ return {
       vim.g.loaded_netrwPlugin = 1
     end,
   },
+
   {
-    'nvim-tree/nvim-tree.lua',
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'MunifTanjim/nui.nvim',
+      'nvim-tree/nvim-web-devicons', -- optional, but recommended
+    },
+    lazy = false, -- neo-tree will lazily load itself
     config = function()
-      require('nvim-tree').setup {
-        view = {
-          width = math.floor(vim.api.nvim_win_get_width(0) / 5),
-        },
-        update_focused_file = {
-          enable = true,
+      require('neo-tree').setup {
+        filesystem = {
+          filtered_items = {
+            hide_dotfiles = false,
+          },
         },
       }
     end,
@@ -56,8 +63,8 @@ return {
       {
         '<leader>tt',
         mode = { 'n' },
-        '<cmd>NvimTreeToggle<cr>',
-        desc = '[t]oggle nvim[t]ree',
+        '<cmd>Neotree toggle<cr>',
+        desc = '[t]oggle neo[t]ree',
       },
     },
   },
