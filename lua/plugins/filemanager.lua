@@ -56,6 +56,10 @@ return {
           filtered_items = {
             hide_dotfiles = false,
           },
+          follow_current_file = {
+            enabled = true,
+            leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+          },
         },
       }
     end,

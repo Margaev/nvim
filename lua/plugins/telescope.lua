@@ -35,6 +35,11 @@ return {
             '--smart-case',
             '-g=!.git',
           },
+          mappings = {
+            n = {
+              ['dd'] = require('telescope.actions').delete_buffer,
+            },
+          },
         },
         extensions = {
           ['ui-select'] = {
