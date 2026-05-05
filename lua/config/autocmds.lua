@@ -48,15 +48,16 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set(
       'n',
       '<leader>SU',
-      [[:s/Union\[\(.*\)\]/\=substitute(submatch(1), ', ', ' | ', 'g')/<CR>]],
-      { buffer = true, desc = '[S]ubstitute [U]nion to |' }
+      [=[:s/Union\[\(\%([^][]*\|\[[^][]*\]\)*\)\]/\=substitute(submatch(1), ',\s*', ' | ', 'g')/g<CR>]=],
+      { buffer = true, desc = 'Refactor Union to |' }
     )
   end,
 })
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'python',
   callback = function()
-    vim.keymap.set('n', '<leader>SO', [[:s/Optional\[\(.*\)\]/\=submatch(1) . ' | None'/<CR>]], { buffer = true, desc = '[S]ubstitute [O]ptional to | None' })
+    vim.keymap.set('n', '<leader>SO', [=[:s/Optional\[\([^]]*\)\]/\1 | None/g<CR>]=], { buffer = true, desc = '[S]ubstitute [O]ptional to | None' })
   end,
 })
 
