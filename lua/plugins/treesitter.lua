@@ -25,6 +25,7 @@ return {
           'typescript',
           'javascript',
           'scala',
+          'yaml',
         })
         :wait(300000)
       require('nvim-treesitter').setup {
