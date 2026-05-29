@@ -60,6 +60,21 @@ return {
             enabled = true,
             leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
           },
+          window = {
+            mappings = {
+              -- disable fuzzy finder
+              ['/'] = 'noop',
+              ['<leader>/'] = {
+                'fuzzy_finder',
+                config = {
+                  title = 'Filter',
+                },
+              },
+              ['gh'] = {
+                'show_help',
+              },
+            },
+          },
         },
       }
     end,
