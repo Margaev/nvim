@@ -47,10 +47,10 @@ return {
       require('dap-go').setup()
       dap.configurations.go = {
         {
-          type = 'delve',
+          type = 'go',
           name = 'file',
           request = 'launch',
-          program = '${file}',
+          program = '${fileDirname}',
           outputMode = 'remote',
         },
       }
