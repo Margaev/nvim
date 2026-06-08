@@ -107,7 +107,9 @@ return {
       local session_sidebar = nil
 
       vim.keymap.set('n', '<leader>ds', function()
-        if session_sidebar and session_sidebar.close and pcall(session_sidebar.close) then
+        -- Check if the sidebar instance exists and its buffer is still loaded in a window
+        if session_sidebar and session_sidebar.buf and vim.fn.bufwinnr(session_sidebar.buf) ~= -1 then
+          session_sidebar.close()
           session_sidebar = nil
         else
           session_sidebar = widgets.sidebar(widgets.sessions)
