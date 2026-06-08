@@ -102,6 +102,18 @@ return {
       -- dap.listeners.before.event_exited.dapui_config = function()
       --   ui.close()
       -- end
+
+      local widgets = require 'dap.ui.widgets'
+      local session_sidebar = nil
+
+      vim.keymap.set('n', '<leader>ds', function()
+        if session_sidebar and session_sidebar.close and pcall(session_sidebar.close) then
+          session_sidebar = nil
+        else
+          session_sidebar = widgets.sidebar(widgets.sessions)
+          session_sidebar.open()
+        end
+      end, { desc = '[d]ap [s]ession sidebar' })
     end,
   },
   {
