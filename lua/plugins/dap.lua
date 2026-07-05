@@ -20,6 +20,7 @@ return {
       'mfussenegger/nvim-dap-python',
       'theHamsta/nvim-dap-virtual-text',
       'williamboman/mason.nvim',
+      'nvim-jdtls',
     },
     config = function()
       local dap = require 'dap'

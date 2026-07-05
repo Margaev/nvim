@@ -14,6 +14,16 @@ return {
           vim.system({ 'go', 'install', 'gotest.tools/gotestsum@latest' }):wait() -- Optional, but recommended
         end,
       },
+      {
+        'rcasia/neotest-java',
+        ft = 'java',
+        dependencies = {
+          'mfussenegger/nvim-jdtls',
+          'mfussenegger/nvim-dap',
+          'rcarriga/nvim-dap-ui',
+          'theHamsta/nvim-dap-virtual-text',
+        },
+      },
     },
     config = function()
       local go_config = {
@@ -23,6 +33,7 @@ return {
         adapters = {
           require 'neotest-python',
           require 'neotest-golang'(go_config),
+          require 'neotest-java' {},
         },
       }
     end,

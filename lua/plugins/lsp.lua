@@ -139,6 +139,13 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua',
+        'delve',
+        'java-debug-adapter',
+        'jsonls',
+        'ruff',
+        'tofu-ls',
+        'yamlls',
+        'debugpy',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -192,7 +199,7 @@ return {
 
   {
     'scalameta/nvim-metals',
-    ft = { 'scala', 'sbt', 'java' },
+    ft = { 'scala', 'sbt' },
     opts = function()
       local metals_config = require('metals').bare_config()
       metals_config.on_attach = function(client, bufnr)
@@ -213,4 +220,6 @@ return {
       })
     end,
   },
+
+  { 'mfussenegger/nvim-jdtls' },
 }

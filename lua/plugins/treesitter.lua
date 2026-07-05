@@ -24,6 +24,7 @@ return {
           'go',
           'typescript',
           'javascript',
+          'java',
           'scala',
           'yaml',
         })
