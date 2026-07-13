@@ -1,4 +1,15 @@
 -- See `:help vim.lsp.start` for an overview of the supported `config` options.
+local jdtls = require 'jdtls'
+
+local root_dir = vim.fs.root(0, { 'pom.xml', 'gradlew', '.git', 'mvnw' })
+
+if root_dir == '' or not root_dir then
+  return
+end
+
+local project_name = root_dir:gsub('/', '_')
+local workspace_dir = vim.fn.stdpath 'data' .. '/jdtls-workspace/' .. project_name
+
 local config = {
   name = 'jdtls',
 
@@ -10,11 +21,15 @@ local config = {
   -- As alternative you could also avoid the `jdtls` wrapper and launch
   -- eclipse.jdt.ls via the `java` executable
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
-  cmd = { 'jdtls' },
+  cmd = {
+    'jdtls',
+    '-data',
+    workspace_dir,
+  },
 
   -- `root_dir` must point to the root of your project.
   -- See `:help vim.fs.root`
-  root_dir = vim.fs.root(0, { 'gradlew', '.git', 'mvnw' }),
+  root_dir = root_dir,
 
   -- Here you can configure eclipse.jdt.ls specific settings
   -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
@@ -32,8 +47,11 @@ local config = {
   -- If you don't plan on any eclipse.jdt.ls plugins you can remove this
   init_options = {
     bundles = {
-      vim.fn.glob('/Users/drewysq/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar', 1),
+      vim.fn.glob('/Users/drewysq/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar', true),
     },
   },
 }
-require('jdtls').start_or_attach(config)
+
+vim.schedule(function()
+  jdtls.start_or_attach(config)
+end)
