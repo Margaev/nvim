@@ -38,6 +38,12 @@ return {
           mappings = {
             n = {
               ['dd'] = require('telescope.actions').delete_buffer,
+              ['<S-Down>'] = require('telescope.actions').cycle_history_next,
+              ['<S-Up>'] = require('telescope.actions').cycle_history_prev,
+            },
+            i = {
+              ['<S-Down>'] = require('telescope.actions').cycle_history_next,
+              ['<S-Up>'] = require('telescope.actions').cycle_history_prev,
             },
           },
         },
