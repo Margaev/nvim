@@ -1,3 +1,10 @@
+local orig_hover = vim.lsp.buf.hover
+vim.lsp.buf.hover = function(opts)
+  opts = opts or {}
+  opts.border = 'solid'
+  return orig_hover(opts)
+end
+
 return {
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
