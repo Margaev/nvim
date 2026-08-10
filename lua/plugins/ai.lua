@@ -103,59 +103,59 @@ return {
     end,
   },
 
-  {
-    'olimorris/codecompanion.nvim',
-    version = '^19.0.0',
-    config = function()
-      require('codecompanion').setup {
-        -- adapters = {
-        --   http = {
-        --     ollama = function()
-        --       return require('codecompanion.adapters').extend('ollama', {
-        --         env = {
-        --           url = 'http://localhost:11434',
-        --           api_key = 'TERM',
-        --           chat_url = '/v1/chat/completions',
-        --         },
-        --         headers = {
-        --           ['Content-Type'] = 'application/json',
-        --           ['Authorization'] = 'Bearer ${api_key}',
-        --         },
-        --         parameters = {
-        --           sync = true,
-        --         },
-        --       })
-        --     end,
-        --   },
-        -- },
-        interactions = {
-          chat = {
-            opts = {
-              -- system_prompt = system_prompt,
-            },
-          },
-        },
-        extensions = {
-          spinner = {},
-        },
-      }
-      vim.keymap.set({ 'n', 'v' }, '<leader>ct', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true })
-      vim.keymap.set({ 'n', 'v' }, '<leader>cc', '<cmd>CodeCompanionChat Toggle<cr>', { noremap = true, silent = true })
-      vim.keymap.set({ 'n', 'v' }, '<leader>cn', '<cmd>CodeCompanionChat<cr>', { noremap = true, silent = true })
-      vim.keymap.set('v', '<leader>ca', '<cmd>CodeCompanionChat Add<cr>', { noremap = true, silent = true })
-
-      -- Expand 'cc' into 'CodeCompanion' in the command line
-      vim.cmd [[cab cc CodeCompanion]]
-      vim.cmd [[cab ccc CodeCompanionChat]]
-    end,
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-treesitter/nvim-treesitter',
-      {
-        'MeanderingProgrammer/render-markdown.nvim',
-        ft = { 'codecompanion' },
-      },
-      'franco-ruggeri/codecompanion-spinner.nvim',
-    },
-  },
+  -- {
+  --   'olimorris/codecompanion.nvim',
+  --   version = '^19.0.0',
+  --   config = function()
+  --     require('codecompanion').setup {
+  --       -- adapters = {
+  --       --   http = {
+  --       --     ollama = function()
+  --       --       return require('codecompanion.adapters').extend('ollama', {
+  --       --         env = {
+  --       --           url = 'http://localhost:11434',
+  --       --           api_key = 'TERM',
+  --       --           chat_url = '/v1/chat/completions',
+  --       --         },
+  --       --         headers = {
+  --       --           ['Content-Type'] = 'application/json',
+  --       --           ['Authorization'] = 'Bearer ${api_key}',
+  --       --         },
+  --       --         parameters = {
+  --       --           sync = true,
+  --       --         },
+  --       --       })
+  --       --     end,
+  --       --   },
+  --       -- },
+  --       interactions = {
+  --         chat = {
+  --           opts = {
+  --             -- system_prompt = system_prompt,
+  --           },
+  --         },
+  --       },
+  --       extensions = {
+  --         spinner = {},
+  --       },
+  --     }
+  --     vim.keymap.set({ 'n', 'v' }, '<leader>ct', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true })
+  --     vim.keymap.set({ 'n', 'v' }, '<leader>cc', '<cmd>CodeCompanionChat Toggle<cr>', { noremap = true, silent = true })
+  --     vim.keymap.set({ 'n', 'v' }, '<leader>cn', '<cmd>CodeCompanionChat<cr>', { noremap = true, silent = true })
+  --     vim.keymap.set('v', '<leader>ca', '<cmd>CodeCompanionChat Add<cr>', { noremap = true, silent = true })
+  --
+  --     -- Expand 'cc' into 'CodeCompanion' in the command line
+  --     vim.cmd [[cab cc CodeCompanion]]
+  --     vim.cmd [[cab ccc CodeCompanionChat]]
+  --   end,
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --     'nvim-treesitter/nvim-treesitter',
+  -- --     {
+  -- --       'MeanderingProgrammer/render-markdown.nvim',
+  -- --       ft = { 'codecompanion' },
+  -- --     },
+  --     'franco-ruggeri/codecompanion-spinner.nvim',
+  --   },
+  -- },
 }
