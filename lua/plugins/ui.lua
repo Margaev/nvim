@@ -87,6 +87,7 @@ return {
     build = function()
       vim.fn['mkdp#util#install']()
     end,
+
     init = function()
       vim.cmd [[
       function! OpenMarkdownPreview(url)
@@ -95,6 +96,7 @@ return {
       let g:mkdp_browserfunc = 'OpenMarkdownPreview'
       ]]
     end,
+
     keys = {
       {
         '<leader>tm',

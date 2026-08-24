@@ -54,7 +54,17 @@ return {
         },
         pickers = {
           find_files = {
-            find_command = { 'rg', '--files', '--hidden', '-g', '!.git' },
+            find_command = {
+              'rg',
+              '--files',
+              '--hidden',
+              '-g',
+              '!.git',
+              '-g',
+              '!.venv',
+            },
+            hidden = true,
+            no_ignore = true,
           },
           live_grep = {
             file_ignore_patterns = { 'node_modules', '.git', '.venv' },
