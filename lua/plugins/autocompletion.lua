@@ -44,6 +44,10 @@ return {
         default = { 'lsp', 'path', 'snippets', 'lazydev' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
+        },
+        per_filetype = {
+          sql = { 'snippets', 'dadbod', 'buffer' },
         },
       },
       snippets = { preset = 'luasnip' },
