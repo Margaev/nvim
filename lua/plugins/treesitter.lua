@@ -27,6 +27,8 @@ return {
           'java',
           'scala',
           'yaml',
+          'json',
+          'csv',
         })
         :wait(300000)
       require('nvim-treesitter').setup {
@@ -86,5 +88,13 @@ return {
       }
       vim.keymap.set('n', '<leader>tj', '<Cmd>TSJToggle<CR>')
     end,
+  },
+
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    opts = {
+      max_lines = 3,
+      trim_scope = 'outer',
+    },
   },
 }
