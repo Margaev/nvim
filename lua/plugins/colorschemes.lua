@@ -2,14 +2,21 @@
 return {
   {
     'rebelot/kanagawa.nvim',
-    priority = 1000,
-    lazy = false,
-    config = function()
-      vim.cmd.colorscheme 'kanagawa'
-    end,
+    -- priority = 1000,
+    lazy = true,
+    -- config = function()
+    --   vim.cmd.colorscheme 'kanagawa'
+    -- end,
   },
   { 'xero/miasma.nvim', lazy = true },
-  { 'sainnhe/gruvbox-material', lazy = true },
+  {
+    'sainnhe/gruvbox-material',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme 'gruvbox-material'
+    end,
+  },
   { 'catppuccin/nvim', name = 'catppuccin', lazy = true },
   {
     'folke/tokyonight.nvim',
