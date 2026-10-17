@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   {
     'rebelot/kanagawa.nvim',
@@ -13,6 +14,8 @@ return {
   {
     'folke/tokyonight.nvim',
     lazy = true,
+    ---@module 'tokyonight'
+    ---@type tokyonight.Config
     opts = {
       styles = {
         comments = { italic = false },

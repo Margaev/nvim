@@ -1,7 +1,10 @@
+---@type LazySpec
 return {
   {
     'folke/lazydev.nvim',
     ft = 'lua',
+    ---@module 'lazydev'
+    ---@type lazydev.Config
     opts = {
       library = {
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
@@ -11,11 +14,20 @@ return {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'mason-org/mason.nvim', opts = {} },
+      {
+        'mason-org/mason.nvim',
+        ---@module 'mason'
+        ---@type MasonSettings
+        opts = {},
+      },
       'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
-      { 'j-hui/fidget.nvim', opts = {} },
+      {
+        'j-hui/fidget.nvim',
+        ---@module 'fidget'
+        opts = {},
+      },
 
       'saghen/blink.cmp',
     },
@@ -121,10 +133,12 @@ return {
         vim.lsp.config(name, server)
       end
 
-      require('mason-lspconfig').setup {
+      ---@type MasonLspconfigSettings
+      local mason_opts = {
         ensure_installed = {}, -- Installed by mason-tool-installer.
         automatic_enable = vim.tbl_keys(servers),
       }
+      require('mason-lspconfig').setup(mason_opts)
     end,
   },
 
@@ -136,6 +150,8 @@ return {
       { 'nvim-telescope/telescope.nvim' },
       {
         'folke/snacks.nvim',
+        ---@module 'snacks'
+        ---@type snacks.Config
         opts = {
           terminal = {},
         },

@@ -1,12 +1,15 @@
+---@type LazySpec
 return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     lazy = false,
     config = function()
-      require('nvim-treesitter').setup {
+      ---@type TSConfig
+      local opts = {
         install_dir = vim.fn.stdpath 'data' .. '/site',
       }
+      require('nvim-treesitter').setup(opts)
       -- tree-sitter-cli is required for this to work
       require('nvim-treesitter').install {
         'bash',
@@ -44,7 +47,8 @@ return {
     config = function()
       local ts_select = require 'nvim-treesitter-textobjects.select'
 
-      require('nvim-treesitter-textobjects').setup {
+      ---@type TSTextObjects.UserConfig
+      local opts = {
         select = {
           enable = true,
           lookahead = true,
@@ -56,6 +60,7 @@ return {
           include_surrounding_whitespace = true,
         },
       }
+      require('nvim-treesitter-textobjects').setup(opts)
 
       -- define keymaps manually
       local modes = { 'x', 'o' }
@@ -90,6 +95,8 @@ return {
 
   {
     'nvim-treesitter/nvim-treesitter-context',
+    ---@module 'treesitter-context'
+    ---@type TSContext.UserConfig
     opts = {
       max_lines = 3,
       trim_scope = 'outer',

@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   {
     'stevearc/conform.nvim',
@@ -13,6 +14,8 @@ return {
         desc = '[F]ormat buffer',
       },
     },
+    ---@module 'conform'
+    ---@type conform.setupOpts
     opts = {
       notify_on_error = true,
       format_on_save = function(bufnr)
@@ -49,7 +52,9 @@ return {
   {
     'NMAC427/guess-indent.nvim',
     config = function()
-      require('guess-indent').setup {}
+      ---@type GuessIndentConfig
+      local opts = {}
+      require('guess-indent').setup(opts)
     end,
   },
 }

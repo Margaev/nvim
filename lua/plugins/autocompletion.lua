@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   {
     'saghen/blink.cmp',
@@ -28,8 +29,8 @@ return {
       },
       'folke/lazydev.nvim',
     },
-    --- @module 'blink.cmp'
-    --- @type blink.cmp.Config
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
     opts = {
       keymap = {
         preset = 'default',

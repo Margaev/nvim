@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   {
     'jpalardy/vim-slime',

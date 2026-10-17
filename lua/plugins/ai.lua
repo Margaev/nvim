@@ -16,6 +16,7 @@ local system_prompt = 'You are a senior programmer AI assistant.\n\n'
   .. '- When generating python, generate the code that complies with ruff and basedpyright with `typeCheckingMode = "standard"` setting'
   .. '- If the user provides the filenames for the code, mention which file you are generating the code for'
 
+---@type LazySpec
 return {
   {
     'github/copilot.vim',
@@ -29,6 +30,8 @@ return {
   {
     'robitx/gp.nvim',
     config = function()
+      ---@module 'gp'
+      ---@type GpConfig
       local conf = {
         openai_api_key = os.getenv 'OPENAI_API_KEY',
         providers = {

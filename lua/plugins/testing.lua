@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   {
     'nvim-neotest/neotest',
@@ -26,16 +27,20 @@ return {
       },
     },
     config = function()
+      ---@module 'neotest-golang'
+      ---@type NeotestGolangOptions
       local go_config = {
         runner = 'gotestsum',
       }
-      require('neotest').setup {
+      ---@type neotest.Config
+      local opts = {
         adapters = {
           require 'neotest-python',
           require 'neotest-golang'(go_config),
           require 'neotest-java' {},
         },
       }
+      require('neotest').setup(opts)
     end,
     keys = {
       {

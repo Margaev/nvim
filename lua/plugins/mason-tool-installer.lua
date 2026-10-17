@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -5,6 +6,8 @@ return {
       'mason-org/mason.nvim',
       'mason-org/mason-lspconfig.nvim',
     },
+    ---@module 'mason-tool-installer'
+    ---@return MasonToolInstallerSettings
     opts = function()
       local servers = require 'config.lsp-servers'
 

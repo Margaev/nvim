@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   {
     'mfussenegger/nvim-dap',
@@ -41,7 +42,8 @@ return {
       local dap = require 'dap'
       local ui = require 'dapui'
 
-      ui.setup {
+      ---@type dapui.Config
+      local opts = {
         layouts = {
           {
             elements = {
@@ -60,6 +62,7 @@ return {
           },
         },
       }
+      ui.setup(opts)
       require('dap-go').setup()
       dap.configurations.go = {
         {
@@ -166,10 +169,12 @@ return {
     'theHamsta/nvim-dap-virtual-text',
     lazy = true,
     config = function()
-      require('nvim-dap-virtual-text').setup {
+      ---@type nvim_dap_virtual_text_options
+      local opts = {
         enabled = true,
         virt_text_pos = 'eol',
       }
+      require('nvim-dap-virtual-text').setup(opts)
     end,
   },
 }

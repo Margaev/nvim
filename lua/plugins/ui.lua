@@ -5,12 +5,22 @@ vim.lsp.buf.hover = function(opts)
   return orig_hover(opts)
 end
 
+---@type LazySpec
 return {
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    ---@module 'todo-comments'
+    ---@type TodoOptions
+    opts = { signs = false },
+  },
 
   {
     'folke/which-key.nvim',
     event = 'VimEnter',
+    ---@module 'which-key'
+    ---@type wk.Opts
     opts = {
       delay = 0,
       icons = {
@@ -121,6 +131,8 @@ return {
 
   {
     'folke/zen-mode.nvim',
+    ---@module 'zen-mode'
+    ---@type ZenOptions
     opts = {},
     keys = {
       {

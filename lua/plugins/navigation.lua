@@ -1,7 +1,9 @@
+---@type LazySpec
 return {
   {
     'folke/flash.nvim',
     event = 'VeryLazy',
+    ---@module 'flash'
     ---@type Flash.Config
     opts = {},
     keys = {
@@ -50,6 +52,8 @@ return {
 
   {
     'cbochs/grapple.nvim',
+    ---@module 'grapple'
+    ---@type grapple.options
     opts = {
       scope = 'git',
     },
