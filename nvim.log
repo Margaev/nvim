@@ -1,0 +1,2 @@
+WRN 2026-10-17T11:19:40.254 ?.64198    server_start:197: Failed to start server: operation not permitted: /var/folders/p7/w8rngwr17kjd7kjvt3kkcblw0000gn/T/nvim.drewysq/tcWzoW/nvim.64198.0
+WRN 2026-10-17T11:25:07.847 ?.64657    server_start:197: Failed to start server: operation not permitted: /var/folders/p7/w8rngwr17kjd7kjvt3kkcblw0000gn/T/nvim.drewysq/JxHrP1/nvim.64657.0

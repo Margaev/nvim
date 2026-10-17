@@ -113,41 +113,7 @@ return {
 
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-      local servers = {
-        gopls = {},
-        basedpyright = {
-          exclude = {
-            '**/__pycache__',
-            '**/.git/**',
-            '**/.venv/**',
-          },
-        },
-        ts_ls = {},
-        tailwindcss = {},
-        lua_ls = {
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              diagnostics = { disable = { 'missing-fields' } },
-            },
-          },
-        },
-      }
-
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'stylua',
-        'delve',
-        'java-debug-adapter',
-        'jsonls',
-        'ruff',
-        'tofu-ls',
-        'yamlls',
-        'debugpy',
-      })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      local servers = require 'config.lsp-servers'
 
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (installs are populated via mason-tool-installer)
