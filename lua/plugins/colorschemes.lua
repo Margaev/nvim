@@ -3,52 +3,21 @@ return {
     'rebelot/kanagawa.nvim',
     priority = 1000,
     lazy = false,
-    init = function()
+    config = function()
       vim.cmd.colorscheme 'kanagawa'
     end,
   },
-  {
-    'xero/miasma.nvim',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      -- vim.cmd 'colorscheme miasma'
-    end,
-  },
-  {
-    'sainnhe/gruvbox-material',
-    lazy = false,
-    -- priority = 1000,
-    init = function()
-      -- vim.cmd.colorscheme 'gruvbox-material'
-    end,
-  },
-  {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    -- priority = 1000
-    init = function()
-      -- vim.cmd.colorscheme 'gruvbox-material'
-    end,
-  },
+  { 'xero/miasma.nvim', lazy = true },
+  { 'sainnhe/gruvbox-material', lazy = true },
+  { 'catppuccin/nvim', name = 'catppuccin', lazy = true },
   {
     'folke/tokyonight.nvim',
-    priority = 1000,
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false },
-        },
-      }
-    end,
+    lazy = true,
+    opts = {
+      styles = {
+        comments = { italic = false },
+      },
+    },
   },
-  {
-    'rose-pine/neovim',
-    name = 'rose-pine',
-    -- priority = 1000,
-    config = function()
-      -- vim.cmd 'colorscheme rose-pine'
-    end,
-  },
+  { 'rose-pine/neovim', name = 'rose-pine', lazy = true },
 }

@@ -1,13 +1,14 @@
 return {
   gopls = {},
   basedpyright = {
-    exclude = {
-      '**/__pycache__',
-      '**/.git/**',
-      '**/.venv/**',
+    settings = {
+      basedpyright = {
+        analysis = {
+          exclude = { '**/__pycache__', '**/.git/**', '**/.venv/**' },
+        },
+      },
     },
   },
-  ts_ls = {},
   tailwindcss = {},
   lua_ls = {
     settings = {

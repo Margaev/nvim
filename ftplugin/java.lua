@@ -12,6 +12,7 @@ local workspace_dir = vim.fn.stdpath 'data' .. '/jdtls-workspace/' .. project_na
 
 local config = {
   name = 'jdtls',
+  capabilities = require('blink.cmp').get_lsp_capabilities(),
 
   -- `cmd` defines the executable to launch eclipse.jdt.ls.
   -- `jdtls` must be available in $PATH and you must have Python3.9 for this to work.
@@ -46,9 +47,7 @@ local config = {
   --
   -- If you don't plan on any eclipse.jdt.ls plugins you can remove this
   init_options = {
-    bundles = {
-      vim.fn.glob('/Users/drewysq/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar', true),
-    },
+    bundles = vim.fn.glob(vim.fn.stdpath 'data' .. '/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin*.jar', true, true),
   },
 }
 

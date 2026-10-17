@@ -1,13 +1,7 @@
 local function toggle_copilot()
-  if vim.b.copilot_enabled == nil then
-    vim.b.copilot_enabled = true
-  end
-  vim.b.copilot_enabled = not vim.b.copilot_enabled
-  if vim.b.copilot_enabled then
-    vim.notify('Copilot enabled', vim.log.levels.INFO)
-  else
-    vim.notify('Copilot disabled', vim.log.levels.INFO)
-  end
+  local enabled = vim.g.copilot_enabled == false or vim.g.copilot_enabled == 0
+  vim.cmd(enabled and 'Copilot enable' or 'Copilot disable')
+  vim.notify(enabled and 'Copilot enabled' or 'Copilot disabled', vim.log.levels.INFO)
 end
 local system_prompt = 'You are a senior programmer AI assistant.\n\n'
   .. "I'm Andrei, you can call me android or comrade:\n\n"
@@ -25,8 +19,10 @@ local system_prompt = 'You are a senior programmer AI assistant.\n\n'
 return {
   {
     'github/copilot.vim',
-    config = function()
+    init = function()
       vim.g.copilot_enabled = false
+    end,
+    config = function()
       vim.keymap.set('n', '<leader>tC', toggle_copilot, { desc = '[t]oggle [C]opilot' })
     end,
   },

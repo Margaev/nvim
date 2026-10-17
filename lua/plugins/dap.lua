@@ -1,6 +1,21 @@
 return {
   {
     'mfussenegger/nvim-dap',
+    keys = {
+      { '<leader>db', desc = 'Toggle breakpoint' },
+      { '<leader>dgb', desc = 'Run to cursor' },
+      { '<leader>d?', desc = 'Evaluate expression' },
+      { '<leader>dc', desc = 'Continue' },
+      { '<leader>dl', desc = 'Step into' },
+      { '<leader>dj', desc = 'Step over' },
+      { '<leader>dh', desc = 'Step out' },
+      { '<leader>du', desc = 'Run to cursor' },
+      { '<leader>de', desc = 'Terminate' },
+      { '<leader>dr', desc = 'Restart' },
+      { '<leader>td', desc = 'Toggle DAP UI' },
+      { '<leader>df', desc = 'Float DAP element' },
+      { '<leader>ds', desc = 'Toggle debug sessions' },
+    },
     dependencies = {
       {
         'leoluz/nvim-dap-go',
@@ -11,16 +26,16 @@ return {
               require('dap-go').debug_test()
             end,
             desc = '[D]ebug Go [T]est',
+            ft = 'go',
           },
         },
       },
       {
         'rcarriga/nvim-dap-ui',
+        dependencies = { 'nvim-neotest/nvim-nio' },
       },
-      'mfussenegger/nvim-dap-python',
       'theHamsta/nvim-dap-virtual-text',
-      'williamboman/mason.nvim',
-      'nvim-jdtls',
+      'mason-org/mason.nvim',
     },
     config = function()
       local dap = require 'dap'
@@ -121,6 +136,7 @@ return {
   },
   {
     'mfussenegger/nvim-dap-python',
+    dependencies = { 'mfussenegger/nvim-dap' },
     ft = 'python',
     build = false,
     config = function()
@@ -140,6 +156,7 @@ return {
   },
   {
     'nvim-telescope/telescope-dap.nvim',
+    lazy = true,
     dependencies = { 'mfussenegger/nvim-dap', 'nvim-telescope/telescope.nvim' },
     config = function()
       require('telescope').load_extension 'dap'
@@ -147,6 +164,7 @@ return {
   },
   {
     'theHamsta/nvim-dap-virtual-text',
+    lazy = true,
     config = function()
       require('nvim-dap-virtual-text').setup {
         enabled = true,

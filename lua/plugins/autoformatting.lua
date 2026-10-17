@@ -14,7 +14,7 @@ return {
       },
     },
     opts = {
-      notify_on_error = false,
+      notify_on_error = true,
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
@@ -32,15 +32,15 @@ return {
       formatters = {
         sqlfluff = {
           command = 'sqlfluff',
-          args = { 'format', '-' },
+          args = { 'format', '--stdin-filename', '$FILENAME', '-' },
         },
       },
       formatters_by_ft = {
         lua = { 'stylua' },
         python = {
           -- 'ruff_fix',
-          'ruff_format',
           'ruff_organize_imports',
+          'ruff_format',
         },
         sql = { 'sqlfluff' },
       },

@@ -4,35 +4,33 @@ return {
     build = ':TSUpdate',
     lazy = false,
     config = function()
-      -- tree-sitter-cli is required for this to work
-      require('nvim-treesitter')
-        .install({
-          'bash',
-          'c',
-          'diff',
-          'html',
-          'lua',
-          'luadoc',
-          'markdown',
-          'markdown_inline',
-          'query',
-          'vim',
-          'vimdoc',
-          'hcl',
-          'terraform',
-          'python',
-          'go',
-          'typescript',
-          'javascript',
-          'java',
-          'scala',
-          'yaml',
-          'json',
-          'csv',
-        })
-        :wait(300000)
       require('nvim-treesitter').setup {
         install_dir = vim.fn.stdpath 'data' .. '/site',
+      }
+      -- tree-sitter-cli is required for this to work
+      require('nvim-treesitter').install {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'hcl',
+        'terraform',
+        'python',
+        'go',
+        'typescript',
+        'javascript',
+        'java',
+        'scala',
+        'yaml',
+        'json',
+        'csv',
       }
     end,
   },
