@@ -29,6 +29,12 @@ return {
           }
         end
       end,
+      formatters = {
+        sqlfluff = {
+          command = 'sqlfluff',
+          args = { 'format', '-' },
+        },
+      },
       formatters_by_ft = {
         lua = { 'stylua' },
         python = {
@@ -36,6 +42,7 @@ return {
           'ruff_format',
           'ruff_organize_imports',
         },
+        sql = { 'sqlfluff' },
       },
     },
   },
