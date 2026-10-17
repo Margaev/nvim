@@ -1,4 +1,5 @@
 require 'config.options'
 require 'config.lazy'
+vim.cmd.colorscheme 'gruvbox-material'
 require 'config.keymaps'
 require 'config.autocmds'
