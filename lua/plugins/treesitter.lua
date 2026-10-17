@@ -10,6 +10,14 @@ return {
         install_dir = vim.fn.stdpath 'data' .. '/site',
       }
       require('nvim-treesitter').setup(opts)
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('treesitter-highlight', { clear = true }),
+        callback = function(event)
+          if vim.treesitter.get_parser(event.buf, nil, { error = false }) then
+            vim.treesitter.start(event.buf)
+          end
+        end,
+      })
       -- tree-sitter-cli is required for this to work
       require('nvim-treesitter').install {
         'bash',
@@ -28,12 +36,14 @@ return {
         'python',
         'go',
         'typescript',
+        'tsx',
         'javascript',
         'java',
         'scala',
         'yaml',
         'json',
         'csv',
+        'sql',
       }
     end,
   },
@@ -50,7 +60,6 @@ return {
       ---@type TSTextObjects.UserConfig
       local opts = {
         select = {
-          enable = true,
           lookahead = true,
           selection_modes = {
             ['@parameter.outer'] = 'v', -- charwise
