@@ -133,6 +133,10 @@ return {
         else
           session_sidebar = widgets.sidebar(widgets.sessions)
           session_sidebar.open()
+          -- Focus the sidebar window
+          if session_sidebar.win and vim.api.nvim_win_is_valid(session_sidebar.win) then
+            vim.api.nvim_set_current_win(session_sidebar.win)
+          end
         end
       end, { desc = '[d]ap [s]ession sidebar' })
     end,
