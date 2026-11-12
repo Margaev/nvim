@@ -1,3 +1,4 @@
+-- If the sql file is not assigned to a database during execution, assign it
 local function execute_query(scope)
   local buf = vim.api.nvim_get_current_buf()
   local win = vim.api.nvim_get_current_win()
@@ -58,6 +59,7 @@ return {
       { '<leader>Dc', '<cmd>DBUIFindBuffer<CR>', desc = 'Assign SQL buffer to database' },
     },
     init = function()
+      require('config.dadbod-headers').setup()
       vim.g.db_ui_use_nerd_fonts = 1
       vim.g.db_ui_execute_on_save = 0
       vim.g.db_ui_disable_mappings_sql = 1
