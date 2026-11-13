@@ -14,6 +14,10 @@ return {
       { '<leader>de', desc = 'Terminate' },
       { '<leader>dr', desc = 'Restart' },
       { '<leader>td', desc = 'Toggle DAP UI' },
+      { '<leader>da', desc = 'Toggle all DAP UI windows' },
+      { '<leader>dS', desc = 'Toggle DAP scopes' },
+      { '<leader>dR', desc = 'Toggle DAP REPL' },
+      { '<leader>dC', desc = 'Toggle DAP console' },
       { '<leader>df', desc = 'Float DAP element' },
       { '<leader>ds', desc = 'Toggle debug sessions' },
     },
@@ -54,11 +58,17 @@ return {
           },
           {
             elements = {
-              { id = 'repl', size = 0.4 },
-              { id = 'console', size = 0.6 },
+              { id = 'repl', size = 1 },
             },
             position = 'bottom',
-            size = 20,
+            size = 10,
+          },
+          {
+            elements = {
+              { id = 'console', size = 1 },
+            },
+            position = 'bottom',
+            size = 10,
           },
         },
       }
@@ -100,27 +110,37 @@ return {
       -- vim.keymap.set('n', '<leader>dsb', dap.step_back, { desc = 'step back' })
       vim.keymap.set('n', '<leader>de', dap.terminate, { desc = 'terminate' })
       vim.keymap.set('n', '<leader>dr', dap.restart, { desc = 'restart' })
-      vim.keymap.set('n', '<leader>td', function()
+      local function toggle_ui()
         ui.toggle { reset = true }
-      end, { desc = '[T]oggle [D]AP UI' })
+      end
+      vim.keymap.set('n', '<leader>td', toggle_ui, { desc = '[T]oggle [D]AP UI' })
+      vim.keymap.set('n', '<leader>dA', toggle_ui, { desc = 'Toggle all DAP UI windows' })
+
+      for layout, element in ipairs {
+        { key = 'S', name = 'scopes' },
+        { key = 'R', name = 'REPL' },
+        { key = 'C', name = 'console' },
+      } do
+        vim.keymap.set('n', '<leader>d' .. element.key, function()
+          ui.toggle { layout = layout }
+        end, { desc = 'Toggle DAP ' .. element.name })
+      end
 
       vim.keymap.set('n', '<leader>df', function()
         ---@diagnostic disable-next-line: missing-parameter
         ui.float_element()
       end, { desc = '[d]apui [f]loat element' })
 
-      dap.listeners.before.attach.dapui_config = function()
+      local function open_ui_if_closed()
+        for _, layout in ipairs(require('dapui.windows').layouts) do
+          if layout:is_open() then
+            return
+          end
+        end
         ui.open()
       end
-      dap.listeners.before.launch.dapui_config = function()
-        ui.open()
-      end
-      -- dap.listeners.before.event_terminated.dapui_config = function()
-      --   ui.close()
-      -- end
-      -- dap.listeners.before.event_exited.dapui_config = function()
-      --   ui.close()
-      -- end
+      dap.listeners.before.attach.dapui_config = open_ui_if_closed
+      dap.listeners.before.launch.dapui_config = open_ui_if_closed
 
       local widgets = require 'dap.ui.widgets'
       local session_sidebar = nil
