@@ -47,6 +47,13 @@ return {
   {
     'tpope/vim-dadbod',
     cmd = { 'DB' },
+    init = function()
+      -- OVERRIDE / EXTENSION: vim-dadbod aliases trino:// to its presto adapter,
+      -- which ignores URL params (e.g. socks_proxy). Route trino:// to the custom
+      -- adapter in autoload/db/adapter/trino.vim instead.
+      -- Remove this (and that file) if upstream vim-dadbod fixes Trino support.
+      vim.g.db_adapters = vim.tbl_extend('force', vim.g.db_adapters or {}, { trino = 'trino' })
+    end,
   },
   {
     'kristijanhusak/vim-dadbod-ui',
