@@ -1,0 +1,18 @@
+#!/bin/sh
+
+daemon=$(command -v mvnd) || daemon="${SDKMAN_CANDIDATES_DIR:-${SDKMAN_DIR:-$HOME/.sdkman}/candidates}/mvnd/current/bin/mvnd"
+if [ -x "$daemon" ]; then
+  "$daemon" "$@" && exit 0
+fi
+
+directory=$PWD
+while :; do
+  if [ -f "$directory/mvnw" ]; then
+    exec "$directory/mvnw" "$@"
+  fi
+  [ "$directory" = / ] && break
+  directory=${directory%/*}
+  directory=${directory:-/}
+done
+
+exec mvn "$@"

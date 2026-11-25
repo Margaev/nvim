@@ -24,4 +24,5 @@ return {
   yamlls = {},
   tofu_ls = {},
   ruff = {},
+  lemminx = {},
 }

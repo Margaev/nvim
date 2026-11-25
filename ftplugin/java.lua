@@ -24,6 +24,9 @@ local config = {
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
   cmd = {
     'jdtls',
+    '--java-executable',
+    -- The Homebrew JDT LS version must remain compatible with this JDK.
+    '/opt/homebrew/opt/openjdk@25/bin/java',
     '-data',
     workspace_dir,
   },

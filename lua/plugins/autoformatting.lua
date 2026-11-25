@@ -1,3 +1,9 @@
+local maven_launcher = vim.fn.stdpath 'config' .. '/scripts/maven-formatter'
+
+local function is_pom(bufnr)
+  return vim.fs.basename(vim.api.nvim_buf_get_name(bufnr)) == 'pom.xml'
+end
+
 ---@type LazySpec
 return {
   {
@@ -8,7 +14,8 @@ return {
       {
         '<leader>f',
         function()
-          require('conform').format { async = true, lsp_format = vim.bo.filetype == 'java' and 'never' or 'fallback' }
+          local use_maven = vim.bo.filetype == 'java' or is_pom(0)
+          require('conform').format { async = true, lsp_format = use_maven and 'never' or 'fallback' }
         end,
         mode = '',
         desc = '[F]ormat buffer',
@@ -19,6 +26,9 @@ return {
     opts = {
       notify_on_error = true,
       format_on_save = function(bufnr)
+        if is_pom(bufnr) then
+          return { timeout_ms = 10000, lsp_format = 'never' }
+        end
         if vim.bo[bufnr].filetype == 'java' then
           if vim.fs.root(bufnr, 'pom.xml') then
             return { timeout_ms = 10000, lsp_format = 'never' }
@@ -39,6 +49,24 @@ return {
         end
       end,
       formatters = {
+        sortpom = {
+          command = maven_launcher,
+          stdin = false,
+          cwd = function(_, ctx)
+            return ctx.dirname
+          end,
+          args = function(_, ctx)
+            return {
+              '-q',
+              '-B',
+              '-N',
+              '-f',
+              ctx.filename,
+              'com.github.ekryd.sortpom:sortpom-maven-plugin:sort',
+              '-Dsort.createBackupFile=false',
+            }
+          end,
+        },
         sqlfluff = {
           command = 'sqlfluff',
           args = { 'format', '--stdin-filename', '$FILENAME', '-' },
@@ -46,9 +74,8 @@ return {
         -- https://github.com/airlift/airstyle (Maven plugin only, no stdin mode).
         -- Conform writes the buffer to a temp file next to the original; we
         -- restrict the plugin to just that file via `airstyle.includes`.
-        -- For faster Java formatting, install the Maven daemon with SDKMAN: sdk install mvnd
         airstyle = {
-          command = vim.fn.stdpath 'config' .. '/scripts/airstyle-maven',
+          command = maven_launcher,
           stdin = false,
           tmpfile_format = '.conform.$RANDOM.$FILENAME',
           cwd = function(self, ctx)
@@ -56,9 +83,7 @@ return {
           end,
           require_cwd = true,
           args = function(_, ctx)
-            local root = vim.fs.root(ctx.dirname, 'mvnw')
             return {
-              root and (root .. '/mvnw') or 'mvn',
               '-q',
               '-B',
               'io.airlift:airstyle-maven-plugin:RELEASE:format',
@@ -68,6 +93,9 @@ return {
         },
       },
       formatters_by_ft = {
+        xml = function(bufnr)
+          return is_pom(bufnr) and { 'sortpom' } or {}
+        end,
         java = { 'airstyle' },
         lua = { 'stylua' },
         python = {
