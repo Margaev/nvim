@@ -37,7 +37,13 @@ return {
         adapters = {
           require 'neotest-python',
           require 'neotest-golang'(go_config),
-          require 'neotest-java' {},
+          require 'neotest-java' {
+            test_classname_patterns = {
+              '^.*Tests?$', '^.*IT$', '^.*Spec$',
+              '^Test[A-Z].*$',      -- Simple class name used by Neotest
+              '^.*[.]Test[A-Z].*$', -- Fully qualified class name used by JUnit
+            },
+          },
         },
       }
       require('neotest').setup(opts)
