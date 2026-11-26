@@ -77,15 +77,20 @@ return {
     -- 'sindrets/diffview.nvim',
     'dlyongemallo/diffview-plus.nvim',
     version = '*', -- diffview-plus
-    -- cmd = {
-    --   'DiffviewOpen',
-    --   'DiffviewFileHistory',
-    --   'DiffviewClose',
-    --   'DiffviewToggleFiles',
-    --   'DiffviewFocusFiles',
-    --   'DiffviewRefresh',
-    --   'DiffviewLog',
-    -- },
+    cmd = {
+      'DiffviewOpen',
+      'DiffviewClose',
+      'DiffviewToggle',
+      'DiffviewFileHistory',
+      'DiffviewToggleFiles',
+      'DiffviewFocusFiles',
+      'DiffviewRefresh',
+      'DiffviewLog',
+      'DiffviewDiffDirs',
+      'DiffviewDiffFiles',
+      'DiffviewMergeFiles',
+      'DiffviewWorktreeOverview',
+    },
     keys = {
       {
         '<leader>gv',
