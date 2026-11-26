@@ -27,7 +27,9 @@ return {
       notify_on_error = true,
       format_on_save = function(bufnr)
         if is_pom(bufnr) then
-          return { timeout_ms = 10000, lsp_format = 'never' }
+          -- disabling automatic pom.xml formatting
+          -- return { timeout_ms = 10000, lsp_format = 'never' }
+          return -- pom.xml: format manually with <leader>f (sortpom)
         end
         if vim.bo[bufnr].filetype == 'java' then
           if vim.fs.root(bufnr, 'pom.xml') then
