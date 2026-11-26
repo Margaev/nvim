@@ -44,6 +44,7 @@ return {
         'json',
         'csv',
         'sql',
+        'jsonnet',
       }
     end,
   },
